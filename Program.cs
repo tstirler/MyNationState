@@ -8,15 +8,16 @@ namespace MyNationState
 {
     class Program
     {
-        public static Random rnd = new Random();
+        public static Random rnd;
 
         static void Main(string[] args)
         {
+            rnd = new Random();
             //generate nation
             Nation myNation = new Nation();
 
             //run
-            while (myNation.Population > 0)
+            while (myNation.PopulationCount > 0)
             {
                 myNation.update();
                 myNation.draw();

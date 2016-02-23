@@ -9,23 +9,28 @@ namespace MyNationState
     class Population
     {
         private int maleFemaleRatio;
-        private List<People> maleList;
-        private List<People> femaleList;
+        private List<People> populationList;
+        public int TotalPopulation { get { return populationList.Count; } }
+        //public int MalePopulation { get { } }
+        //public int FemalePopulation {  get { } }
 
-        public Population()
+        public Population(int initialPopulation)
         {
-            maleList = new List<People>();
-            maleList = new List<People>();
+            populationList = new List<People>();
+            for(int i = 0; i < initialPopulation; i++)
+            {
+                AddPerson();
+            }
+        }
+
+        public void AddPerson()
+        {
+            populationList.Add(new People());
         }
 
         public void update()
         {
-            foreach (People person in maleList)
-            {
-                person.update();
-            }
-
-            foreach (People person in femaleList)
+            foreach (People person in populationList)
             {
                 person.update();
             }
