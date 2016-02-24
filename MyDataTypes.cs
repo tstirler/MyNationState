@@ -6,68 +6,59 @@ using System.Threading.Tasks;
 
 namespace MyDataTypes
 {
+    enum monthName : int
+    {
+        January = 1,
+        February = 2,
+        March = 3,
+        April = 4,
+        May = 5,
+        June = 6,
+        July = 7,
+        August = 8,
+        September = 9,
+        October = 10,
+        November = 11,
+        December = 12
+    }
+    enum dayName : int
+    {
+        Monday = 1,
+        Tuesday = 2,
+        Wednsday = 3,
+        Thursday = 4,
+        Friday = 5,
+        Saturday = 6,
+        Sunday = 7
+    }
+
     class GameDate
     {
-        private enum monthName : int
-        {
-            January = 0,
-            February = 1,
-            March = 2,
-            April = 3,
-            May = 4,
-            June = 5,
-            July = 6,
-            August = 7,
-            September = 8,
-            October = 9,
-            November = 10,
-            December = 11
-        }
-        private enum dayName : int
-        {
-            Monday = 0,
-            Tuesday = 1,
-            Wednsday = 2,
-            Thursday = 3,
-            Friday = 4,
-            Saturday = 5,
-            Sunday = 6
-        }
-
-        private int year;
-        private int month;
-        private int dayOfTheMonth;
-        private int day;
+        private singleDate currentDate;
         private int dayOfTheWeek;
 
         public GameDate()
         {
-            dayOfTheWeek = 0;
-            dayOfTheMonth = 0;
-            day = 0;
-            month = 0;
-            year = 0;
+            currentDate = new singleDate(1, 1, 0);
+            dayOfTheWeek = 1;
         }
 
         public int Year
         {
-            get
-            {
-                return year;
-            }
+            get { return currentDate.Year; }
         }
         public string Month
         {
             get
             {
-                return Convert.ToString((monthName)month);
+                return Convert.ToString((monthName)currentDate.Month);
             }
         }
         public int MonthNumber
         {
             get
             {
-                return month;
+                return currentDate.Month;
             }
         }
         public string Day
@@ -81,40 +72,68 @@ namespace MyDataTypes
         {
             get
             {
-                return day;
+                return currentDate.Day;
             }
         }
 
         public void NextDay()
         {
-            //Weeks
-            if(dayOfTheWeek == 6)
+            //Years
+            if (currentDate.Month == 12 && currentDate.Day == 30)
             {
-                dayOfTheWeek = 0;
-                day++;
-            } else
-            {
-                day++;
-                dayOfTheWeek++;
+                currentDate.Month = 1;
+                currentDate.Day = 1;
+                currentDate.Year++;
             }
 
             //Months
-            if(dayOfTheMonth==30)
+            if (currentDate.Day == 30)
             {
-                dayOfTheMonth = 0;
-                month++;
-            } else
+                currentDate.Day = 1;
+                currentDate.Month++;
+            }
+            else
             {
-                dayOfTheMonth++;
+                currentDate.Day++;
             }
 
-            //Years
-            if(month == 12 && dayOfTheMonth == 30)
+            //Weeks
+            if (dayOfTheWeek == 7)
             {
-                month = 0;
-                day = 0;
-                year++;
-            }
+                dayOfTheWeek = 1;
+            } else
+            {
+                dayOfTheWeek++;
+            } 
+        }
+    }
+
+    struct singleDate
+    {
+        private int year;
+        private int month;
+        private int day;
+        public int Year
+        {
+            get { return year; }
+            set { year = value; }
+        }
+        public int Month
+        {
+            get { return month; }
+            set { month = value; }
+        }
+        public int Day
+        {
+            get { return day; }
+            set { day = value; }
+        }
+
+        public singleDate(int day, int month, int year)
+        {
+            this.day = day;
+            this.month = month;
+            this.year = year;
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MyDataTypes;
 
 namespace MyNationState
 {
@@ -17,48 +18,28 @@ namespace MyNationState
         private int _femalePopulation;
         public int MalePopulation { get { return _malePopulation; } }
         public int FemalePopulation {  get { return _femalePopulation; } }
-        private int populationIncrease;
         private int deadCount;
         public int DeadCount { get { return deadCount; } }
 
-        public Population(int initialPopulation)
+        public Population(int initialPopulation, singleDate dateToday)
         {
             populationList = new List<People>();
             listOfTheDead = new List<People>();
             for(int i = 0; i < initialPopulation; i++)
             {
-                AddPerson();
+                AddPerson(dateToday);
             }
             deadCount = 0;
-            populationIncrease = populationList.Count / 34;
         }
 
-        public void AddPerson()
+        public void AddPerson(singleDate dateToday)
         {
-            populationList.Add(new People());
+            populationList.Add(new People(dateToday));
             if (populationList[populationList.Count - 1].Gender.Equals('m'))
             {
                 _malePopulation++;
             } else _femalePopulation++;
         }
-
-        //public void populationCount()
-        //{
-        //    _malePopulation = 0;
-        //    _femalePopulation = 0;
-        //    foreach (People person in populationList)
-        //    {
-        //        if (person.Gender.Equals('m'))
-        //        {
-        //            _malePopulation++;
-        //        } else if(person.Gender.Equals('t'))
-        //        {
-        //            //count Transperson.
-        //        }
-        //        else _femalePopulation++;
-        //    }
-        //    deadCount = listOfTheDead.Count;
-        //}
 
         public void countTheDead()
         {
@@ -80,10 +61,8 @@ namespace MyNationState
             }
         }
 
-        public void update()
+        public void update(singleDate dateToday)
         {
-            populationIncrease = populationList.Count / 34;
-
             foreach (People person in populationList)
             {
                 person.update();
@@ -97,14 +76,6 @@ namespace MyNationState
             {
                 maleFemaleRatio = 0;
             }
-
-
-            for (int i = 0; i < populationIncrease; i++)
-            {
-                AddPerson();
-            }
-
-            //populationCount();
         }
 
         public void draw()

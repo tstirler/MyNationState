@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MyDataTypes;
 
 namespace MyNationState
 {
@@ -13,12 +14,14 @@ namespace MyNationState
         private bool _isAlive;
         public bool IsAlive { get { return _isAlive; } }
         public char Gender { get { return gender; } }
+        private singleDate birthDay;
+        public int Age { get { return age; } }
 
         private int lifeSpan;
 
-        public People()
+        public People(singleDate birthDay)
         {
-            lifeSpan = Program.rnd.Next(3650);
+            lifeSpan = Program.rnd.Next(100 * 360);
             if (Program.rnd.Next(100) > 53)
             {
                 gender = 'f';
@@ -26,6 +29,7 @@ namespace MyNationState
             else gender = 'm';
             age = 0;
             _isAlive = true;
+            this.birthDay = birthDay;
         }
 
         public void update()

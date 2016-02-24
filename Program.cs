@@ -23,12 +23,16 @@ namespace MyNationState
             //generate nation
             Nation myNation = new Nation();
 
+            //Console.WriteLine("Calculating Generations.");
+            //for (int i = 0; i < 360 * 100; i++)
+            //{ myNation.update(); }
+
             //run
             while (myNation.PopulationCount > 0)
             {
-                myNation.update();
                 myNation.draw();
                 Console.ReadLine();
+                myNation.update();
             }
             Console.Read();
         }
