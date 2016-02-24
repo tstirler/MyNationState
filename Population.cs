@@ -8,7 +8,8 @@ namespace MyNationState
 {
     class Population
     {
-        private int maleFemaleRatio;
+        private double maleFemaleRatio;
+        public double MaleFemaleRatio { get { return maleFemaleRatio; } }
         private List<People> populationList;
         private List<People> listOfTheDead;
         public int TotalPopulation { get { return populationList.Count; } }
@@ -28,59 +29,82 @@ namespace MyNationState
             {
                 AddPerson();
             }
-            populationIncrease = populationList.Count / 100;
             deadCount = 0;
+            populationIncrease = populationList.Count / 34;
         }
 
         public void AddPerson()
         {
             populationList.Add(new People());
+            if (populationList[populationList.Count - 1].Gender.Equals('m'))
+            {
+                _malePopulation++;
+            } else _femalePopulation++;
         }
 
-        public void populationCount()
+        //public void populationCount()
+        //{
+        //    _malePopulation = 0;
+        //    _femalePopulation = 0;
+        //    foreach (People person in populationList)
+        //    {
+        //        if (person.Gender.Equals('m'))
+        //        {
+        //            _malePopulation++;
+        //        } else if(person.Gender.Equals('t'))
+        //        {
+        //            //count Transperson.
+        //        }
+        //        else _femalePopulation++;
+        //    }
+        //    deadCount = listOfTheDead.Count;
+        //}
+
+        public void countTheDead()
         {
-            _malePopulation = 0;
-            _femalePopulation = 0;
-            foreach (People person in populationList)
+            for (int i = populationList.Count - 1; i >= 0; i--)
             {
-                if (person.Gender.Equals('m'))
+                People personToCheck;
+                personToCheck = populationList[i];
+                if (!populationList[i].IsAlive)
                 {
-                    _malePopulation++;
-                } else if(person.Gender.Equals('t'))
-                {
-                    //count Transperson.
+                    if (personToCheck.Gender.Equals('m'))
+                    {
+                        _malePopulation--;
+                    }
+                    else _femalePopulation--;
+                    listOfTheDead.Add(personToCheck);
+                    populationList.Remove(populationList[i]);
+                    deadCount++;
                 }
-                else _femalePopulation++;
             }
-            deadCount = listOfTheDead.Count;
         }
 
         public void update()
         {
-            populationIncrease = populationList.Count / 40;
-            int populationAmount = populationList.Count;
-            People personToCheck;
+            populationIncrease = populationList.Count / 34;
+
             foreach (People person in populationList)
             {
                 person.update();
             }
 
-            for(int i = populationAmount -1; i >= 0; i--)
+            countTheDead();
+            try
             {
-                personToCheck = populationList[i];
-                if (!populationList[i].IsAlive)
-                {
-                    listOfTheDead.Add(personToCheck);
-                    populationList.Remove(populationList[i]);
-                }
+                maleFemaleRatio = (double)_malePopulation / _femalePopulation;
+            } catch(DivideByZeroException)
+            {
+                maleFemaleRatio = 0;
             }
+
 
             for (int i = 0; i < populationIncrease; i++)
             {
-                populationList.Add(new People());
+                AddPerson();
             }
 
-            populationCount();
+            //populationCount();
         }
 
         public void draw()

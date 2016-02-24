@@ -35,6 +35,7 @@ namespace MyNationState
             Console.WriteLine("Population: " + nationPopulation.TotalPopulation);
             Console.WriteLine("Male population: " + nationPopulation.MalePopulation);
             Console.WriteLine("Female population: " + nationPopulation.FemalePopulation);
+            Console.WriteLine("Male to Female ratio: {0}", nationPopulation.MaleFemaleRatio);
             Console.WriteLine("");
             Console.WriteLine("DeadCount: " + nationPopulation.DeadCount);
             nationPopulation.draw();
