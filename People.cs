@@ -14,8 +14,11 @@ namespace MyNationState
         public bool IsAlive { get { return _isAlive; } }
         public char Gender { get { return gender; } }
 
+        private int lifeSpan;
+
         public People()
         {
+            lifeSpan = Program.rnd.Next(3650);
             if (Program.rnd.Next(100) > 53)
             {
                 gender = 'f';
@@ -28,10 +31,7 @@ namespace MyNationState
         public void update()
         {
             age++;
-            if (age >= 47 && gender.Equals('m'))
-            {
-                _isAlive = false;
-            } else if (age >= 50 && gender.Equals('f'))
+            if(age >= lifeSpan)
             {
                 _isAlive = false;
             }
