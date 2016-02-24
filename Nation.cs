@@ -31,9 +31,12 @@ namespace MyNationState
 
         public void draw()
         {
+            Console.SetCursorPosition(0, 0);
             Console.WriteLine("Population: " + nationPopulation.TotalPopulation);
-            //Console.WriteLine("Male population: " + nationPopulation.MalePopulation);
-            //Console.WriteLine("Female population: " + nationPopulation.FemalePopulation);
+            Console.WriteLine("Male population: " + nationPopulation.MalePopulation);
+            Console.WriteLine("Female population: " + nationPopulation.FemalePopulation);
+            Console.WriteLine("");
+            Console.WriteLine("DeadCount: " + nationPopulation.DeadCount);
             nationPopulation.draw();
         }
     }

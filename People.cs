@@ -11,6 +11,8 @@ namespace MyNationState
         private char gender;
         private int age;
         private bool _isAlive;
+        public bool IsAlive { get { return _isAlive; } }
+        public char Gender { get { return gender; } }
 
         public People()
         {
@@ -26,6 +28,13 @@ namespace MyNationState
         public void update()
         {
             age++;
+            if (age >= 47 && gender.Equals('m'))
+            {
+                _isAlive = false;
+            } else if (age >= 50 && gender.Equals('f'))
+            {
+                _isAlive = false;
+            }
         }
 
         public void draw()

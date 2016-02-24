@@ -21,7 +21,7 @@ namespace MyNationState
             {
                 myNation.update();
                 myNation.draw();
-                Console.ReadLine();
+                //Console.ReadLine();
             }
             Console.Read();
         }
