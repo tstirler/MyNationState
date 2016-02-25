@@ -9,27 +9,42 @@ namespace MyNationState
 {
     class Program
     {
+        struct GameFlags
+        {
+            public int TimeCounterDays;
+            public int TimeCounterYears;
+            public int MonthLength;
+            public int NumberOfMonths;
+            public int YearsToCalculate;
+            public bool DrawPersonUpdate;
+        }
+
+        static GameFlags flags;
         public static Random rnd;
-        public static int timeCounterDays;
-        public static int timeCounterYears;
-        public static int monthLength;
-        public static int numberOfMonths;
 
         static void Main(string[] args)
         {
-            timeCounterDays = 0;
-            timeCounterYears = 0;
-            monthLength = 30;
-            int yearsToCalculate = 50;
-            bool drawPersonUpdate = false;
-            
+            #region Set Flags
+            flags = new GameFlags();
+            flags.TimeCounterDays = 0;
+            flags.TimeCounterYears = 0;
+            flags.MonthLength = 30;
+            flags.YearsToCalculate = 50;
+            flags.DrawPersonUpdate = false;
+            #endregion
+
+            string nationName;
             rnd = new Random();
             //generate nation
-            Nation myNation = new Nation();
+            Console.WriteLine("Please input nation name: ");
+            nationName = Console.ReadLine();
+            Nation myNation = new Nation(nationName);
 
+            #region Calculate Generations
+            Console.SetCursorPosition(0, 0);
             Console.WriteLine("Calculating Generations.");
             Console.Write("|");
-            for(int i = 0; i <= yearsToCalculate; i++)
+            for(int i = 0; i <= flags.YearsToCalculate; i++)
             {
                 if (i % 10 == 0)
                 {
@@ -42,22 +57,24 @@ namespace MyNationState
             }
             Console.Write("|");
             Console.SetCursorPosition(1, 1);
-            for (int i = 0; i < 360 * yearsToCalculate; i++)
+            for (int i = 0; i < 360 * flags.YearsToCalculate; i++)
             {
                 if (i % 360 == 0) Console.Write("X");
-                myNation.update(drawPersonUpdate);
+                myNation.update(flags.DrawPersonUpdate);
             }
+            #endregion
 
             Console.Clear();
-            //run
-            
+
+            #region Main Gameloop
+            //flags.DrawPersonUpdate = true;
             while (myNation.PopulationCount > 0)
             {
                 myNation.draw();
                 Console.ReadLine();
-                myNation.update(drawPersonUpdate);
+                myNation.update(flags.DrawPersonUpdate);
             }
-
+            #endregion
 
             Console.Read();
         }
