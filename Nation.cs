@@ -30,15 +30,16 @@ namespace MyNationState
         {
         }
 
-        public void update()
+        public void update(bool drawPersonUpdate)
         {
             nationDate.NextDay();
             DateToday = new singleDate(nationDate.DayNumber, nationDate.MonthNumber, nationDate.Year);
-            nationPopulation.update(DateToday);
+            nationPopulation.update(DateToday, drawPersonUpdate);
         }
 
         public void draw()
         {
+            Console.Clear();
             Console.SetCursorPosition(0, 0);
             Console.WriteLine("Date: " + nationDate.Day + ", " + nationDate.DayNumber + ". " + nationDate.Month + " " + nationDate.Year + "              ");
             Console.WriteLine("");
@@ -47,9 +48,8 @@ namespace MyNationState
             Console.WriteLine("Female population: " + nationPopulation.FemalePopulation);
             Console.WriteLine("Male to Female ratio: {0}", nationPopulation.MaleFemaleRatio);
             Console.WriteLine("");
-            Console.WriteLine("Oldest person alive: " + nationPopulation.OldestPerson.Age);
+            //Console.WriteLine("Oldest person alive: " + nationPopulation.OldestPerson.Age);
             Console.WriteLine("DeadCount: " + nationPopulation.DeadCount);
-            nationPopulation.draw();
         }
     }
 }

@@ -11,7 +11,8 @@ namespace MyNationState
     {
         private double maleFemaleRatio;
         public double MaleFemaleRatio { get { return maleFemaleRatio; } }
-        private List<People> populationList;
+        private Dictionary<int,People> populationList;
+        private int personNumber;
         private List<People> listOfTheDead;
         public int TotalPopulation { get { return populationList.Count; } }
         private int _malePopulation;
@@ -20,10 +21,14 @@ namespace MyNationState
         public int FemalePopulation {  get { return _femalePopulation; } }
         private int deadCount;
         public int DeadCount { get { return deadCount; } }
+        private People OldestPerson;
+        private List<int> personBirthCheckList;
+        private List<int> personDeathCheckList;
 
         public Population(int initialPopulation, singleDate dateToday)
         {
-            populationList = new List<People>();
+            personNumber = 0;
+            populationList = new Dictionary<int, People>();
             listOfTheDead = new List<People>();
             for(int i = 0; i < initialPopulation; i++)
             {
@@ -34,41 +39,50 @@ namespace MyNationState
 
         public void AddPerson(singleDate dateToday)
         {
-            populationList.Add(new People(dateToday));
-            if (populationList[populationList.Count - 1].Gender.Equals('m'))
+            personNumber++;
+            populationList.Add(personNumber, new People(dateToday, personNumber));
+            if (populationList[personNumber].Gender.Equals('m'))
             {
                 _malePopulation++;
             } else _femalePopulation++;
         }
 
-        public void countTheDead()
+        public void countTheDead(int whoToKill)
         {
-            for (int i = populationList.Count - 1; i >= 0; i--)
-            {
-                People personToCheck;
-                personToCheck = populationList[i];
-                if (!populationList[i].IsAlive)
-                {
-                    if (personToCheck.Gender.Equals('m'))
-                    {
-                        _malePopulation--;
-                    }
-                    else _femalePopulation--;
-                    listOfTheDead.Add(personToCheck);
-                    populationList.Remove(populationList[i]);
-                    deadCount++;
-                }
-            }
+            listOfTheDead.Add(populationList[whoToKill]);
+            populationList.Remove(whoToKill);
+            deadCount++;
         }
 
-        public void update(singleDate dateToday)
+        public void update(singleDate dateToday, bool drawPersonUpdate)
         {
-            foreach (People person in populationList)
+            personBirthCheckList = new List<int>();
+            personDeathCheckList = new List<int>();
+            foreach (var person in populationList)
             {
-                person.update();
+                person.Value.update(drawPersonUpdate);
+                if(person.Value.IsPregnant && person.Value.PregnantCounter == 9 *30)
+                {
+                    personBirthCheckList.Add(person.Key);
+                }
+
+                if(!person.Value.IsAlive)
+                {
+                    personDeathCheckList.Add(person.Key);
+                }
             }
 
-            countTheDead();
+            for(int i = personBirthCheckList.Count -1; i > 0; i--)
+            {
+                populationList[personBirthCheckList[i]].GiveBirth();
+                AddPerson(dateToday);
+            }
+
+            for(int i = personDeathCheckList.Count - 1; i > 0; i--)
+            {
+                countTheDead(personDeathCheckList[i]);
+            }
+
             try
             {
                 maleFemaleRatio = (double)_malePopulation / _femalePopulation;
@@ -76,11 +90,6 @@ namespace MyNationState
             {
                 maleFemaleRatio = 0;
             }
-        }
-
-        public void draw()
-        {
-
         }
     }
 }
