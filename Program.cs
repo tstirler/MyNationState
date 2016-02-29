@@ -21,24 +21,7 @@ namespace MyNationState
 
         static GameFlags flags;
         public static Random rnd;
-<<<<<<< HEAD
-        public static int timeCounterDays;
-        public static int timeCounterYears;
-        public static int monthLength;
-        public static int numberOfMonths;
         
-
-        static void Main(string[] args)
-        {
-            string playerArgs;
-            timeCounterDays = 0;
-            timeCounterYears = 0;
-            monthLength = 30;
-            int yearsToCalculate = 20;
-            bool drawPersonUpdate = false;
-            
-=======
-
         static void Main(string[] args)
         {
             #region Set Flags
@@ -51,8 +34,9 @@ namespace MyNationState
             #endregion
 
             string nationName;
->>>>>>> origin/master
             rnd = new Random();
+            string playerArgs;
+
             //generate nation
             Console.WriteLine("Please input nation name: ");
             nationName = Console.ReadLine();
@@ -89,22 +73,19 @@ namespace MyNationState
             while (myNation.PopulationCount > 0)
             {
                 myNation.draw();
-<<<<<<< HEAD
+
                 playerArgs = Console.ReadLine();
                 if (!playerArgs.Equals(""))
                 {
                     Convert.ToInt32(playerArgs);
-=======
-                Console.ReadLine();
-                myNation.update(flags.DrawPersonUpdate);
-            }
-            #endregion
->>>>>>> origin/master
-
-                } else (playerArgs.Equals(""))
-                {
-                    myNation.update(drawPersonUpdate);
+                    flags.DrawPersonUpdate = true;
+                    myNation.update(flags.DrawPersonUpdate);
                 }
+                else
+                {
+                    myNation.update(flags.DrawPersonUpdate);
+                }
+                #endregion
             }
             
             Console.Read();
