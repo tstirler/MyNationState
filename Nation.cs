@@ -9,7 +9,7 @@ namespace MyNationState
 {
     class Nation
     {
-        private int initalPopulation = 5000;
+        private int initalPopulation = 500;
         private string nationName;
         private Population nationPopulation;
         private GameDate nationDate;
@@ -17,11 +17,11 @@ namespace MyNationState
         private int _populationCount;
         public int PopulationCount { get { return _populationCount; } }
 
-        public Nation()
+        public Nation(string NationName)
         {
             nationDate = new GameDate();
             DateToday = new singleDate(nationDate.DayNumber, nationDate.MonthNumber, nationDate.Year);
-            nationName = "TestNation";
+            nationName = NationName;
             nationPopulation = new Population(initalPopulation, DateToday);
             _populationCount = nationPopulation.TotalPopulation;
         }
@@ -42,7 +42,7 @@ namespace MyNationState
             Console.Clear();
             Console.SetCursorPosition(0, 0);
             Console.WriteLine("Date: " + nationDate.Day + ", " + nationDate.DayNumber + ". " + nationDate.Month + " " + nationDate.Year + "              ");
-            Console.WriteLine("");
+            Console.WriteLine(this.nationName);
             Console.WriteLine("Population: " + nationPopulation.TotalPopulation);
             Console.WriteLine("Male population: " + nationPopulation.MalePopulation);
             Console.WriteLine("Female population: " + nationPopulation.FemalePopulation);
