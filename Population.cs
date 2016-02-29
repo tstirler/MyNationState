@@ -21,7 +21,8 @@ namespace MyNationState
         public int FemalePopulation {  get { return _femalePopulation; } }
         private int deadCount;
         public int DeadCount { get { return deadCount; } }
-        private People OldestPerson;
+        private int oldestPerson;
+        public int OldestPerson { get { return oldestPerson; } }
         private List<int> personBirthCheckList;
         private List<int> personDeathCheckList;
 
@@ -56,11 +57,16 @@ namespace MyNationState
 
         public void update(singleDate dateToday, bool drawPersonUpdate)
         {
+            oldestPerson = 0;
             personBirthCheckList = new List<int>();
             personDeathCheckList = new List<int>();
             foreach (var person in populationList)
             {
                 person.Value.update(drawPersonUpdate);
+                if (person.Value.Age > oldestPerson)
+                {
+                    oldestPerson = person.Value.Age;
+                }
                 if(person.Value.IsPregnant && person.Value.PregnantCounter == 9 *30)
                 {
                     personBirthCheckList.Add(person.Key);

@@ -23,6 +23,7 @@ namespace MyNationState
         private int personNumber;
         public int PersonNumber { get { return personNumber; } }
         private int chanceToGetPregnant = 1;
+        public personName PersonName;
 
         private int lifeSpan;
 
@@ -32,8 +33,13 @@ namespace MyNationState
             if (Program.rnd.Next(100) > 53)
             {
                 gender = 'f';
+                PersonName = new personName("Jane", "Doe");
             }
-            else gender = 'm';
+            else
+            {
+                gender = 'm';
+                PersonName = new personName("John", "Doe");
+            }
             age = 0;
             _isAlive = true;
             this.birthDay = birthDay;
@@ -53,11 +59,7 @@ namespace MyNationState
             }
 
             if (isPregnant) pregnantCounter++;
-
-            if(willDraw)
-            {
-                draw();
-            }
+            if(willDraw) draw();
         }
 
         public void BecomePregnant()
@@ -65,7 +67,6 @@ namespace MyNationState
             isPregnant = true;
             pregnantCounter = 0;
         }
-
         public void GiveBirth()
         {
             isPregnant = false;
@@ -75,7 +76,7 @@ namespace MyNationState
         {
             Console.SetCursorPosition(0, 15);
             Console.WriteLine("Updating person:");
-            Console.WriteLine("Person Number: " + this.personNumber + "             ");
+            Console.WriteLine("Person Number: " + this.personNumber + " First name: " + PersonName.FirstName + " Last name:" + PersonName.LastName);
             Console.WriteLine("Age: " + this.age/360 + "             ");
             Console.WriteLine("Is Alive: " + this.IsAlive + "             ");
             Console.WriteLine("Is Pregnant: " + this.IsPregnant + "             ");

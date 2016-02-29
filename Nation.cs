@@ -48,7 +48,7 @@ namespace MyNationState
             Console.WriteLine("Female population: " + nationPopulation.FemalePopulation);
             Console.WriteLine("Male to Female ratio: {0}", nationPopulation.MaleFemaleRatio);
             Console.WriteLine("");
-            //Console.WriteLine("Oldest person alive: " + nationPopulation.OldestPerson.Age);
+            Console.WriteLine("Oldest person alive: " + nationPopulation.OldestPerson / 360);
             Console.WriteLine("DeadCount: " + nationPopulation.DeadCount);
         }
     }

@@ -14,13 +14,15 @@ namespace MyNationState
         public static int timeCounterYears;
         public static int monthLength;
         public static int numberOfMonths;
+        
 
         static void Main(string[] args)
         {
+            string playerArgs;
             timeCounterDays = 0;
             timeCounterYears = 0;
             monthLength = 30;
-            int yearsToCalculate = 50;
+            int yearsToCalculate = 20;
             bool drawPersonUpdate = false;
             
             rnd = new Random();
@@ -54,11 +56,17 @@ namespace MyNationState
             while (myNation.PopulationCount > 0)
             {
                 myNation.draw();
-                Console.ReadLine();
-                myNation.update(drawPersonUpdate);
+                playerArgs = Console.ReadLine();
+                if (!playerArgs.Equals(""))
+                {
+                    Convert.ToInt32(playerArgs);
+
+                } else (playerArgs.Equals(""))
+                {
+                    myNation.update(drawPersonUpdate);
+                }
             }
-
-
+            
             Console.Read();
         }
     }

@@ -136,4 +136,18 @@ namespace MyDataTypes
             this.year = year;
         }
     }
+
+    struct personName
+    {
+        private string firstName;
+        private string lastName;
+        public string FirstName { get { return firstName; } }
+        public string LastName { get { return lastName; } }
+
+        public personName(string FirstName, string LastName)
+        {
+            this.firstName = FirstName;
+            this.lastName = LastName;
+        }
+    }
 }
