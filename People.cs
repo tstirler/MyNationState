@@ -27,21 +27,37 @@ namespace MyNationState
 
         private int lifeSpan;
 
+        private string getFemaleFirstName()
+        {
+            string firstName;
+            firstName = Enum.GetName(typeof(FemaleNames), Program.rnd.Next(Enum.GetNames(typeof(FemaleNames)).Length));
+            return firstName;
+        }
+
+        private string getMaleFirstName()
+        {
+            string firstName;
+            firstName = Enum.GetName(typeof(MaleNames), Program.rnd.Next(Enum.GetNames(typeof(MaleNames)).Length));
+            return firstName;
+        }
+
         public People(singleDate birthDay, int personNumber)
         {
-            lifeSpan = Program.rnd.Next(50 * 360, 100 * 360);
+            lifeSpan = Program.rnd.Next(30 * 360, 100 * 360);
             if (Program.rnd.Next(100) > 53)
             {
-                gender = 'f';
-                PersonName = new personName("Jane", "Doe");
+                this.gender = 'f';
+                Population.IncrementFemalePopulation();
+                this.PersonName = new personName(getFemaleFirstName(), "Doe");
             }
             else
             {
-                gender = 'm';
-                PersonName = new personName("John", "Doe");
+                this.gender = 'm';
+                Population.IncrementMalePopulation();
+                this.PersonName = new personName(getMaleFirstName(), "Doe");
             }
-            age = 0;
-            _isAlive = true;
+            this.age = 0;
+            this._isAlive = true;
             this.birthDay = birthDay;
             this.isPregnant = false;
             this.personNumber = personNumber;
@@ -49,40 +65,36 @@ namespace MyNationState
 
         public void update(bool willDraw)
         {
-            age++;
+            this.age++;
             
-            if(age >= lifeSpan) _isAlive = false;
+            if(this.age >= lifeSpan) this._isAlive = false;
             
-            if(age > (360 * 16) && age < (360 * 45) && gender.Equals('f') && Program.rnd.Next(100) < chanceToGetPregnant && !isPregnant)
+            if(this.age > (360 * 16) && this.age < (360 * 45) && this.gender.Equals('f') && Program.rnd.Next(100) < chanceToGetPregnant && !this.isPregnant)
             {
-                BecomePregnant();
+                this.BecomePregnant();
             }
 
-            if (isPregnant) pregnantCounter++;
-            if(willDraw) draw();
+            if (this.isPregnant) this.pregnantCounter++;
+            if(willDraw) this.draw();
         }
 
         public void BecomePregnant()
         {
-            isPregnant = true;
-            pregnantCounter = 0;
+            this.isPregnant = true;
+            this.pregnantCounter = 0;
         }
         public void GiveBirth()
         {
-            isPregnant = false;
+            this.isPregnant = false;
         }
 
         public void draw()
         {
-            Console.SetCursorPosition(0, 15);
-            Console.WriteLine("Updating person:");
-            Console.WriteLine("Person Number: " + this.personNumber + " First name: " + PersonName.FirstName + " Last name:" + PersonName.LastName);
-            Console.WriteLine("Age: " + this.age/360 + "             ");
+            Console.SetCursorPosition(0, 15);;
+            Console.WriteLine("Person Number: " + this.personNumber + "\tFirst name: " + PersonName.FirstName + " Last name: " + PersonName.LastName + "             ");
+            Console.WriteLine("Age: " + this.age/360 + "y " + (this.age%360) /30 + "m " + (this.age % 360) % 12 + "d, Gender: " + this.Gender);
             Console.WriteLine("Is Alive: " + this.IsAlive + "             ");
             Console.WriteLine("Is Pregnant: " + this.IsPregnant + "             ");
-            Console.SetCursorPosition(0, 15);
-            Console.WriteLine("Done updating.  ");
-            Console.SetCursorPosition(0, 20);
         }
     }
 }
