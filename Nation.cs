@@ -9,7 +9,7 @@ namespace MyNationState
 {
     class Nation
     {
-        private int initalPopulation = 500;
+        private int initalPopulation = 50;
         private string nationName;
         private Population nationPopulation;
         private GameDate nationDate;

@@ -63,7 +63,6 @@ namespace MyNationState
             {
                 listOfTheDead[personNumber].draw();
             }
-
         }
 
         public void AddPerson(singleDate dateToday)

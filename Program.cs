@@ -126,7 +126,7 @@ namespace MyNationState
                     int numberOfYearsProgressed = 0;
                     bool inputNumeric = false;
                     
-                    Console.WriteLine("How many days do you wish to simulate?");
+                    Console.WriteLine("How many days do you wish to progress?");
                     while (!inputNumeric)
                     {
                         playerInput = Console.ReadLine();
@@ -161,6 +161,9 @@ namespace MyNationState
                         myNation.update(flags.DrawPersonUpdate);
                     }
                     Console.Clear();
+                } else if(playerArgs.Equals(""))
+                {
+                    myNation.update(flags.DrawPersonUpdate);
                 }
                 #endregion
             }
